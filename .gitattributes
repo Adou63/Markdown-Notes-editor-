@@ -1,0 +1,8 @@
+# Normalize line endings: store text as LF in the repo, check out native on disk.
+* text=auto eol=lf
+
+# Treat bundled binaries as binary (never line-ending-converted or diffed).
+*.png  binary
+*.ico  binary
+*.woff2 binary
+*.lnk  binary

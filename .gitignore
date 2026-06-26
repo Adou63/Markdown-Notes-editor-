@@ -1,0 +1,14 @@
+# Machine-specific Windows shortcut (embeds an absolute local path)
+Notes.lnk
+
+# Local Windows launcher and shortcut helper (machine-specific)
+launch-notes.vbs
+create-shortcut.ps1
+
+# Local Claude Code guidance — not part of the published project
+CLAUDE.md
+
+# OS / editor cruft
+Thumbs.db
+.DS_Store
+.vscode/

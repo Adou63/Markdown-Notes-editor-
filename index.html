@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <link rel="icon" href="favicon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#7C3AED" />
+    <link rel="stylesheet" href="vendor/toastui-editor.min.css" />
+    <link rel="stylesheet" href="vendor/toastui-editor-dark.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="icons.css" />
+  </head>
+  <body>
+    <!-- Shown when the browser lacks the File System Access API -->
+    <div id="unsupported" class="unsupported hidden">
+      <div class="unsupported-card">
+        <h1>Use Edge or Chrome</h1>
+        <p>
+          This app saves your notes as real <code>.md</code> files on disk using the
+          <strong>File System Access API</strong>, which only works in Chromium browsers.
+        </p>
+        <p>Please reopen this page in <strong>Microsoft Edge</strong> or <strong>Google Chrome</strong>.</p>
+      </div>
+    </div>
+
+    <div id="app" class="app">
+      <!-- Toolbar -->
+      <header class="toolbar">
+        <div class="brand">
+          <svg class="logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="8.5" y="3.5" width="10.5" height="14" rx="2" />
+            <rect x="5" y="6.5" width="10.5" height="14" rx="2" fill="var(--sheet)" />
+            <line x1="7.6" y1="10.6" x2="12.9" y2="10.6" />
+            <line x1="7.6" y1="13.6" x2="12.9" y2="13.6" />
+            <line x1="7.6" y1="16.6" x2="11" y2="16.6" />
+          </svg>
+          <span class="brand-name">Notes</span>
+        </div>
+        <button id="btn-open" class="btn btn-primary" title="Open a folder of .md files" aria-label="Open a folder of .md files">Open folder</button>
+        <button id="btn-new-note" class="btn" disabled title="New note (Ctrl+N)" aria-label="New note">+ Note</button>
+        <button id="btn-new-folder" class="btn" disabled title="New folder" aria-label="New folder">+ Folder</button>
+        <button id="btn-import" class="btn" disabled title="Import .md files" aria-label="Import .md files">Import</button>
+        <button id="btn-export" class="btn" disabled title="Download a copy of this note" aria-label="Download a copy of this note">Export</button>
+        <div class="spacer"></div>
+        <button id="btn-theme" class="btn btn-icon" title="Switch theme" aria-label="Switch light or dark theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" />
+          </svg>
+        </button>
+        <span id="status" class="status"></span>
+      </header>
+
+      <div class="main">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <div class="search-wrap">
+            <input id="search" type="search" placeholder="Search notes…" disabled />
+          </div>
+          <nav id="tree" class="tree">
+            <div class="empty-hint">Click <strong>Open folder</strong> to choose where your notes live.</div>
+          </nav>
+        </aside>
+
+        <!-- Editor -->
+        <section class="content">
+          <div id="editor-header" class="editor-header hidden">
+            <input id="note-title" class="note-title" type="text" title="Rename note" />
+            <label class="move-label">
+              Folder:
+              <select id="move-folder" title="Move note to folder"></select>
+            </label>
+            <button id="btn-delete" class="btn btn-danger" title="Delete this note">Delete</button>
+          </div>
+          <div id="editor" class="editor-host hidden"></div>
+          <div id="welcome-screen" class="welcome-screen">
+            <div class="welcome-card">
+              <svg class="logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="8.5" y="3.5" width="10.5" height="14" rx="2" />
+                <rect x="5" y="6.5" width="10.5" height="14" rx="2" fill="var(--sheet)" />
+                <line x1="7.6" y1="10.6" x2="12.9" y2="10.6" />
+                <line x1="7.6" y1="13.6" x2="12.9" y2="13.6" />
+                <line x1="7.6" y1="16.6" x2="11" y2="16.6" />
+              </svg>
+              <h1 class="hero-title">Write it down.<br /><em>Keep the file.</em></h1>
+              <p class="lede">Every note is a plain <code>.md</code> file on your disk — yours to keep, long after any app. Open a folder to begin.</p>
+              <button id="btn-open-2" class="btn btn-primary btn-lg">Open a folder</button>
+              <p class="hint">where your notes live · e.g. <code>Documents / Notes</code></p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Hidden file input used for Import -->
+    <input id="file-input" type="file" accept=".md,.markdown,.txt" multiple class="hidden" />
+
+    <script src="vendor/toastui-editor-all.min.js"></script>
+    <script src="fs.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Register the app-shell service worker for offline / installable PWA.
+         Only over http(s) (e.g. the launch-notes.vbs localhost launcher);
+         service workers are unavailable on file://, so this is a no-op there. -->
+    <script>
+      if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('sw.js').catch(function (err) {
+            console.warn('Service worker registration failed:', err);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

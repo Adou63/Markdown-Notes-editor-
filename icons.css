@@ -1,0 +1,112 @@
+/*
+ * icons.css — remplace les icônes de la barre d'outils Toast UI (sprite PNG, flou
+ * sur écran haute densité) par des icônes SVG vectorielles, toujours nettes.
+ *
+ * Technique : on neutralise le background-image (le sprite) du bouton, et on
+ * dessine l'icône dans un pseudo-élément ::before via -webkit-mask / mask. Le
+ * masque ne laisse passer qu'une couleur unie (background-color), donc l'icône
+ * suit le thème : grise au repos, encre au survol, violette quand le format est
+ * actif. Le survol/rectangle de fond natif du bouton reste intact.
+ */
+
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons {
+  background-image: none !important;
+  position: relative;
+}
+
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--muted);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 20px 20px;
+  mask-size: 20px 20px;
+  transition: background-color 0.12s ease;
+}
+
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons:hover::before {
+  background-color: var(--ink);
+}
+
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons:not(:disabled).active::before {
+  background-color: var(--accent);
+}
+
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons:disabled::before {
+  background-color: var(--faint);
+}
+
+/* ---- Per-icon SVG masks (Lucide-style, 24x24 stroke) --------------------- */
+
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.heading::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 4v16'/><path d='M18 4v16'/><path d='M6 12h12'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 4v16'/><path d='M18 4v16'/><path d='M6 12h12'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.bold::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 5h6a3.5 3.5 0 0 1 0 7H7z'/><path d='M7 12h7a3.5 3.5 0 0 1 0 7H7z'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 5h6a3.5 3.5 0 0 1 0 7H7z'/><path d='M7 12h7a3.5 3.5 0 0 1 0 7H7z'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.italic::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='19' y1='5' x2='11' y2='5'/><line x1='13' y1='19' x2='5' y2='19'/><line x1='15' y1='5' x2='9' y2='19'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='19' y1='5' x2='11' y2='5'/><line x1='13' y1='19' x2='5' y2='19'/><line x1='15' y1='5' x2='9' y2='19'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.strike::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 4H9a3 3 0 0 0-2.83 4'/><path d='M14 12a4 4 0 0 1 0 8H6'/><line x1='4' y1='12' x2='20' y2='12'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 4H9a3 3 0 0 0-2.83 4'/><path d='M14 12a4 4 0 0 1 0 8H6'/><line x1='4' y1='12' x2='20' y2='12'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.hrline::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='5' y1='12' x2='19' y2='12'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='5' y1='12' x2='19' y2='12'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.quote::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='4' y1='6' x2='4' y2='18'/><line x1='9' y1='7' x2='20' y2='7'/><line x1='9' y1='12' x2='20' y2='12'/><line x1='9' y1='17' x2='20' y2='17'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='4' y1='6' x2='4' y2='18'/><line x1='9' y1='7' x2='20' y2='7'/><line x1='9' y1='12' x2='20' y2='12'/><line x1='9' y1='17' x2='20' y2='17'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.bullet-list::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='9' y1='6' x2='20' y2='6'/><line x1='9' y1='12' x2='20' y2='12'/><line x1='9' y1='18' x2='20' y2='18'/><path d='M4 6h.01'/><path d='M4 12h.01'/><path d='M4 18h.01'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='9' y1='6' x2='20' y2='6'/><line x1='9' y1='12' x2='20' y2='12'/><line x1='9' y1='18' x2='20' y2='18'/><path d='M4 6h.01'/><path d='M4 12h.01'/><path d='M4 18h.01'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.ordered-list::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='10' y1='6' x2='20' y2='6'/><line x1='10' y1='12' x2='20' y2='12'/><line x1='10' y1='18' x2='20' y2='18'/><path d='M4 5l1.4-.7V10'/><path d='M4 16.2c.4-1.2 2.4-1 2.4 .2 0 .9-2.4 1.4-2.4 2.6h2.6'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='10' y1='6' x2='20' y2='6'/><line x1='10' y1='12' x2='20' y2='12'/><line x1='10' y1='18' x2='20' y2='18'/><path d='M4 5l1.4-.7V10'/><path d='M4 16.2c.4-1.2 2.4-1 2.4 .2 0 .9-2.4 1.4-2.4 2.6h2.6'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.task-list::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='11' y1='6' x2='20' y2='6'/><line x1='11' y1='12' x2='20' y2='12'/><line x1='11' y1='18' x2='20' y2='18'/><path d='M3 6l1.3 1.3L7 4.5'/><path d='M3 12l1.3 1.3L7 10.5'/><path d='M3 18l1.3 1.3L7 16.5'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='11' y1='6' x2='20' y2='6'/><line x1='11' y1='12' x2='20' y2='12'/><line x1='11' y1='18' x2='20' y2='18'/><path d='M3 6l1.3 1.3L7 4.5'/><path d='M3 12l1.3 1.3L7 10.5'/><path d='M3 18l1.3 1.3L7 16.5'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.indent::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='4 8 8 12 4 16'/><line x1='12' y1='6' x2='20' y2='6'/><line x1='12' y1='12' x2='20' y2='12'/><line x1='12' y1='18' x2='20' y2='18'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='4 8 8 12 4 16'/><line x1='12' y1='6' x2='20' y2='6'/><line x1='12' y1='12' x2='20' y2='12'/><line x1='12' y1='18' x2='20' y2='18'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.outdent::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='8 8 4 12 8 16'/><line x1='12' y1='6' x2='20' y2='6'/><line x1='12' y1='12' x2='20' y2='12'/><line x1='12' y1='18' x2='20' y2='18'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='8 8 4 12 8 16'/><line x1='12' y1='6' x2='20' y2='6'/><line x1='12' y1='12' x2='20' y2='12'/><line x1='12' y1='18' x2='20' y2='18'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.table::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='16' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/><line x1='3' y1='15' x2='21' y2='15'/><line x1='9' y1='4' x2='9' y2='20'/><line x1='15' y1='4' x2='15' y2='20'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='16' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/><line x1='3' y1='15' x2='21' y2='15'/><line x1='9' y1='4' x2='9' y2='20'/><line x1='15' y1='4' x2='15' y2='20'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.image::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='16' rx='2'/><circle cx='8.5' cy='9.5' r='1.5'/><path d='M21 16l-5-5L5 20'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='16' rx='2'/><circle cx='8.5' cy='9.5' r='1.5'/><path d='M21 16l-5-5L5 20'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.link::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1 1'/><path d='M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1-1'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1 1'/><path d='M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1-1'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.code::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'/><polyline points='8 6 2 12 8 18'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'/><polyline points='8 6 2 12 8 18'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.codeblock::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M10 9l-2.5 3 2.5 3'/><path d='M14 9l2.5 3-2.5 3'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M10 9l-2.5 3 2.5 3'/><path d='M14 9l2.5 3-2.5 3'/></svg>");
+}
+.toastui-editor-defaultUI .toastui-editor-toolbar-icons.more::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h.01'/><path d='M12 12h.01'/><path d='M19 12h.01'/></svg>");
+          mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h.01'/><path d='M12 12h.01'/><path d='M19 12h.01'/></svg>");
+}
